@@ -13,7 +13,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="css/theme/wizcorp.css" id="theme">
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -39,20 +39,20 @@
 			<div class="slides">
 
 				<section>
-					<h1>Ejecta + Cordova</h1>
-					<h3>Canvas that kicks ass!</h3>
+					<h1>The Wizard View Manager</h1>
+					<h3>Cordova + Wizard View Manager + Ejecta</h3>
+					<img width="160" height="180" src="assets/cordova_bot.png" alt="Cordova"><img width="160" height="160" src="assets/wiz_logo.jpeg" alt="Wizcorp"><img width="329" height="85" src="assets/ejecta_logo.png" alt="Ejecta">
 					<p>
 						<small>Created by Ally Ogilvie / <a href="http://twitter.com/allyogilvie">@allyogilvie</a></small>
 					</p>
 				</section>
-
+				
 				<section>
 					<h2>Heads Up</h2>
 					<ul>
-						<li>What does the project look like?</li>
+						<li>What does the View Manager do?</li>
 						<li>How do I make an Ejecta canvas?</li>
 						<li>What APIs do I have? / How to use?</li>
-						<li>Where is Mithril?</li>
 						<li>Questions?!!?!?!</li>
 					</ul>
 
@@ -63,33 +63,31 @@
 
 				<section>
 					<section>
-						<h2>What does the project look like?</h2>
-						<p>
-							<a href="#" class="navigate-down">Yo Mama! </a>
-						</p>
+						<h2>What does the View Manager do?</h2>
 						<a href="#" class="image navigate-down">
-							<img width="400" height="238" src="assets/yoMama.jpeg" alt="Down arrow">
+							<img width="500" height="375" src="assets/what.jpeg" alt="Down arrow">
 						</a>
 					</section>
 					<section>
 						<h2>3 Layers</h2>
 						<ul>
-							<li>UIWebView HTML5 codebase <br /> (Cordova Framework)</li><br />
+							<li>HTML5 WebView codebase <br /> (Cordova JS)</li><br />
 							<li>Native Frameworks <br /> (Cordova Framework / Other Frameworks)</li><br />
-							<li>UIView Canvas JavaScript codebase <br /> (Ejecta Framework)</li>
+							<li>Webviews / Canvas / Components? <br /> (WizViewManager Plugin / Ejecta Framework)</li>
 						</ul>
 					</section>
 					<section>
 						<h2>Boot order</h2>
+						<p>When can we use it?</p>
 						<img width="280" height="326" src="assets/boot.png" alt="BOOT!">
 					</section>
 					<section>
 						<h2>... from App start …</h2>
 						<ol>
 							<li class="fragment"><em>Cordova Framework </em><code>init()</code></li>
-							<li class="fragment"><em> -> Cordova loads source index.html</em></li>
+							<li class="fragment"><em> -> Cordova loads source: index.html</em></li>
 							<li class="fragment"><em> -> Listen for 'deviceready'</em></li>
-							<li class="fragment"><em> -> Create Canvas with source index.js</em></li>
+							<li class="fragment"><em> -> Create Canvas with source: index.js</em></li>
 							<li class="fragment"><em> -> Message the canvas with code</em></li>
 						</ol>
 					</section>
@@ -98,7 +96,7 @@
 
 				<section>
 					<section>
-						<h2>How do I make an Ejecta canvas?</h2>
+						<h2>Example: How do I make an Ejecta canvas?</h2>
 						<img style="background:none; border:none; box-shadow:none;" width="540" height="750" src="assets/wizard.png" alt="WIZARD!">
 					</section>
 					<section data-markdown>
@@ -119,16 +117,27 @@
 					</section>
 					<section>
 						<h2>So …</h2>
-						<img width="370" height="420" src="assets/baby.jpg" alt="baby!">
-						<p class="fragment">Nope!</p>
+						<img width="370" height="420" src="assets/baby.png" alt="baby!">
+						<p class="fragment">Sure!</p>
 					</section>
 				</section>
 
 				<section>
 					<section>
-						<h2>What APIs do I have? / How to use?</h2>
-						<p>Short answer: ALL</p>
-						<p>Long answer: BUT, they are called differently…</p>
+						<h2>Wizard View Manager APIs</h2>
+						<ul>
+							<li><code>.create(viewName, options)</code></li><br />
+							<li><code>.show(viewName, animationOptions)</code></li><br />
+							<li><code>.hide(viewName, animationOptions)</code></li><br /> 
+							<li><code>.load(viewName, src)</code></li><br /> 
+							<li><code>.setLayout(viewName, options)</code></li><br /> 
+							<li><code>.remove(viewName)</code></li><br /> 
+						</ul>
+						<p><em>options takes CSS-like positions! (top / bottom / 50% etc.)</em></p>
+					</section>
+					<section>
+						<h2>The Wizard View Messenger...</h2>
+
 					</section>
 					<section data-markdown>
 						<script type="text/template">
@@ -151,12 +160,13 @@
 								function wizMessageReceiver(data) {
 									var parsedData = JSON.parse(data);
         if ( parsedData.method && parsedData.params ) {
-        	var paramString = "";
-        	for ( i = 0; i < parsedData.length(); i += 1) {
-        		paramString += parsedData.params[i]; 
-        	}
             var tmpFunc = new Function( 
-            	parsedData.method( paramString ) 
+            	parsedData.method( parsedData.params[0], 
+            					   parsedData.params[1], 
+            					   parsedData.params[2], 
+            					   parsedData.params[3],
+            					   parsedData.params[4]
+            					 ) 
             );
 			tmpFunc();
         }
