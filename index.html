@@ -4,10 +4,10 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>[Title here]</title>
+		<title>"RSpec and Guard presentation</title>
 
-		<meta name="description" content="[Description here]">
-		<meta name="author" content="[Author here]">
+		<meta name="description" content="RSpec and Guard presentation for Wizcorp Sysamdin meeting">
+		<meta name="author" content="Dmytro Kovalov">
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -39,70 +39,58 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 
-    <section>
-        <section>
-            <h1>rspec and guard</h1>
-            <ul>
-                <li>http://rspec.info/</li>
-                <li>https://github.com/guard/guard<br>
-                </li>
-            </ul>
-        </section>
-        <section>
-            <h2>RSpec</h2>
-            <div>
-                <ul>
-                    <li>Behaviour-Driven Development<br>
-                    </li>
-                    <li>textual descriptions of examples<br>
-                    </li>
-                    <li>extensible expectation language<br>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <section>
-            <h2>Guard</h2>
-            <div>
-                <ul>
-                    <li>handle events on file system modifications<br>
-                    </li>
-                    <li>visual system notifications<br>
-                    </li>
-                    <li>Supports Growl<br>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <section>
-            <h2>typical Spec</h2>
-            <pre>describe <span style="background-color: rgb(0,0,0);">"Configuration"</span> do 
+<section data-markdown><script type="text/template">
+# rspec and guard
+* [http://rspec.info/](http://rspec.info/)
+* [https://github.com/guard/guard](https://github.com/guard/guard)
+</script></section>
 
+<section data-markdown><script type="text/template">
+## RSpec
+* Behaviour-Driven Development
+* Textual descriptions of examples
+* Extensible expectation language
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Guard
+* Handle events on file system modifications
+* Visual system notifications
+* Supports Growl
+</script></section>
+
+<section data-markdown><script type="text/template">
+
+## typical Spec
+<pre>
+describe <span style="background-color: rgb(0,0,0);">"Configuration"</span> do
+        
   before { 
     @cfg = Nagios::Config.new
   }
-
+  
   context <span style="background-color: rgb(0,0,0);">"nagios.cfg"</span> do
-
-    it { File.<span style="background-color: rgb(0,0,0);">should exist</span> @cfg.path }
     
+    it { File.<span style="background-color: rgb(0,0,0);">should exist</span> @cfg.path }
+
     it <span style="background-color: rgb(0,0,0);">"should be parseable"</span> do
-      lambda { @cfg.parse }.should_not raise_error
-    end
-
-...
-
+    lambda { @cfg.parse }.should_not raise_error
   end
-end</pre>
-            <div>
-                <i>Highlighted&nbsp;strings used in documentation</i>
-                <br>
-            </div>
-        </section>
-        <section>
-            <h2>RSPEC SESSION</h2>
-            <div>Specs documentation</div>
-            <pre>$ rspec --format documentation
+  ...
+end
+</pre>
+          
+*Highlighted strings used as documentation*
+
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+    
+## RSPEC SESSION
+Specs documenting
+
+<pre>$ rspec --format documentation
 
 <font color="#ff3366">Configuration
   nagios.cfg
@@ -117,134 +105,137 @@ end</pre>
       should be parseable
 
 Finished in 0.0937 seconds
-<p>8 examples, 0 failures</p>
-        </pre>
-    </section>
-    <section>
-        <h2>Plain english dsl</h2>
-        <pre>   it { <font color="#ffff00">File.should exist</font>(file) }<br>
-        </pre>
-        <pre>      context :nagios do 
-        subject {  @nagios }
-        
-        it { <font color="#ffff33">should have_key</font> :hostgroups }
-        it { <font color="#ffff00">should have_key</font> :erb } 
-<br>
-    </pre>
-    <pre>          when :source
-            @buckets[:source].<font color="#ffff00">should be_a_kind_of String</font>
-          when :list 
-            @buckets[:list].<font color="#ffff00">should be_a_kind_of Array</font>
-
+8 examples, 0 failures
 </pre>
-    <pre>
-        <font color="#ffff00">expect</font> { c.new @defaults }.<font color="#ffff00">to_not raise_error</font>
-    </pre>
-</section>
-<section>
-    <h2>shared examples</h2>
-    <div>Define</div>
-    <pre>shared_examples_for <font color="#ffff00">:not_found</font> do 
+
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## Plain english dsl
+
+```ruby:
+it { File.should exist(file) }
+
+context :nagios do 
+  subject {  @nagios }
+        
+  it { should have_key :hostgroups }
+  it { should have_key :erb } 
+
+end
+[...]
+  when :source
+    @buckets[:source].should be_a_kind_of String
+  when :list 
+    @buckets[:list].should be_a_kind_of Array
+
+expect { c.new @defaults }.to_not raise_error
+```
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## shared examples
+
+Define
+
+```   
+shared_examples_for :not_found do 
 
   it { response.status.should == 404}  
   it { data["status"].should == "not_found" }
   
 end
-</pre>
-    <p>Use</p>
-    <pre>      context 'not found' do 
-        before do 
-          get :show, :user =&gt; 'bad_name'
-        end
+```
 
-        it_behaves_like <font color="#ffff00">:not_found</font>
+Use
 
-      end
-</pre>
-    <div style="text-align: left;">
-        <br>
-    </div>
-    <div style="text-align: left;">
-        <br>
-    </div>
-</section>
-<section>
-    <h2>Guard configuration</h2>
-    <div>Guardfile</div>
-    <div>RegExp based: match --&gt; action</div>
-    <pre>guard 'rspec', :version =&gt; 2 do
+```
+context 'not found' do 
+  before do 
+    get :show, :user => 'bad_name'
+  end
 
-  watch(%r{^<span style="background-color: rgb(0,153,0);">lib</span>/<span style="background-color: rgb(51,51,153);">(.+)</span>\.rb$})     { |m| "spec/<span style="background-color: rgb(0,153,0);">lib</span>/<span style="background-color: rgb(0,51,153);">#{m[1]</span>}_spec.rb" }
-  watch('spec/spec_helper.rb')  { "spec" }
+it_behaves_like :not_found
+end
+```
 
-  watch(%r{^config/.+\.yml$}) { |m| "spec/configuration_spec.rb" }
+</script></section>
 
-end</pre>
-    <p>Gemfile</p>
-    <pre>group :development, :test do 
-<font color="#ffff00">  gem 'guard'
-  gem "growl", "~&gt; 1.0.3"
-</font>end<br>
-</pre>
-<div style="text-align: left;">
-    <br>
-</div>
-</section>
-<section>
-    <h2>Guard plugins</h2>
-    <div>173 plugins at the time of writing</div>
-    <div>
-        <br>
-    </div>
-    <div>
-        <a href="https://rubygems.org/search?page=6&amp;query=guard-">https://rubygems.org/search?page=6&amp;query=guard-</a>
-        <br>
-    </div>
-    <div>
-        <br>
-    </div>
-    <div>Some of plugins ....</div>
-</section>
-<section>
-    <h2>CI?</h2>
-    <div>
-        <ul>
-            <li>guard-jenkins - Guard-Jenkins checks for the modification of the nextBuild...</li>
-        </ul>
-        <div style="text-align: left;">
-            <br>
-        </div>
-        <br>
-        <h2>Puppet?</h2>
-    </div>
-    <div>
-        <ul>
-            <li>guard-puppet-lint - &nbsp;As Puppet manifest files change, run puppet-lint on them</li>
-            <li>guard-puppet - Reapply Puppet configs automatically using Guard</li>
-        </ul>
-    </div>
-</section>
-<section>
-    <h2>Javascript?</h2>
-    <div>
-        <ul>
-            <li>guard-coffeescript –Guard::CoffeeScript automatically generates your JavaScripts from your CoffeeScripts</li>
-            <li>guard-jasmine-node –&nbsp;Guard::JasmineNode automatically runs your Jasmine Node specs</li>
-            <li>guard-jshint-node —&nbsp;Guard::JshintNode automatically runs JSHint when watched files are modified</li>
-        </ul>
-    </div>
-</section>
-<section>
-    <h2>Other?</h2>
-    <div>
-        <ul>
-            <li>guard-phpunit —&nbsp;Guard::PHPUnit automatically run your unit-tests written with the PHPUnit testing framework</li>
-            <li style="">guard-shell –&nbsp;Guard::Shell automatically runs shell commands</li>
-            <li>guard-gitpusher – Guard::Gitpusher automatically runs git commands</li>
-        </ul>
-    </div>
-</section>
-</section>
+
+<section data-markdown><script type="text/template">
+## Guard configuration
+
+### Guardfile
+RegExp based: match --> action
+
+```
+guard 'rspec', :version => 2 do
+
+  watch(%r{^lib/(.+)\.rb$})    { |m| "spec/lib/#{m[1]}_spec.rb"} 
+  watch('spec/spec_helper.rb') { "spec" }
+  watch(%r{^config/.+\.yml$})  { |m| "spec/configuration_spec.rb"}
+
+end
+```
+
+### Gemfile
+    
+```    
+group :development, :test do 
+  gem 'guard'
+  gem "growl", "~> 1.0.3"
+end
+```
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Guard plugins
+
+173 plugins at the time of writing
+
+[https://rubygems.org/search?page=6&amp;query=guard-](https://rubygems.org/search?page=6&amp;query=guard-)
+
+Some of the plugins ....
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+## CI?
+* `guard-jenkins` - Guard-Jenkins checks for the modification of the nextBuild...
+
+## Puppet?
+* `guard-puppet-lint` -  As Puppet manifest files change, run puppet-lint on them
+* `guard-puppet` - Reapply Puppet configs automatically using Guard
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Javascript?
+* `guard-coffeescript` – Guard::CoffeeScript automatically generates your JavaScripts from your CoffeeScripts
+* `guard-jasmine-node` – Guard::JasmineNode automatically runs your Jasmine Node specs
+* `guard-jshint-node` — Guard::JshintNode automatically runs JSHint when watched files are modified
+</script></section>
+
+
+<section data-markdown><script type="text/template">    
+
+## Other?
+* `guard-phpunit` — Guard::PHPUnit automatically run your unit-tests written with the PHPUnit testing framework
+* guard-shell – Guard::Shell automatically runs shell commands
+* guard-gitpusher – Guard::Gitpusher automatically runs git commands
+
+</script></section>
+
+<section data-markdown><script type="text/template">    
+
+# the end
+
+[dkovalov@wizcorp.jp](mailto:dkovalov@wizcorp.jp)
+
+</script></section>
+
 </div>
 
 			</div>
