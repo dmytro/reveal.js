@@ -396,7 +396,6 @@ curl http://localhost:4567/_status/airport/_services/PING
 </script></section>
 
 
-
 <section data-markdown><script type="text/template">
 ###### examples
 ## same in XML 
@@ -415,6 +414,35 @@ curl http://localhost:4567/_status/_list.xml
   <string>yarylo</string>
 </string>
 ```
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+###### examples
+## PUT service check(s)
+
+```
+
+curl -X PUT -H "Content-type: application/json;" \
+    -d @ping_and_http.json \
+    http://localhost:4567/_status/svaroh/_services
+    
+
+ [{ 
+          "service_description":"PING",
+          "return_code":"0",
+          "plugin_output":"64 bytes from 127.0.0.1: icmp_seq=0 ttl=64 time=0.046 ms "
+         },
+  
+       {
+          "service_description":"Apache",
+          "return_code":"2",
+          "plugin_output":"HTTP GEt failed"
+          }
+         ]
+         
+```    
 </script></section>
 
 
