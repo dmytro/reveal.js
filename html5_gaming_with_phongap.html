@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>HTML5 Gaming With PhoneGap (plugins)</title>
+
+		<meta name="description" content="ゲームエクスペリエンスをもっと豊かにするためにPhoneGap & PhoneGap pluginsを使用する方法について説明します。
+PhoneGapとNode.jsを使ったHTML5ゲーム設計のための技術についてや、WebView間のデータのやりとについても説明します。">
+		<meta name="author" content="Ally Ogilvie">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		
+		<link rel="stylesheet" href="css/reveal.min.css" type="text/css" />
+		<link rel="stylesheet" href="css/theme/wizcorp_dark.css" id="theme" type="text/css" />
+		<link rel="stylesheet" href="css/prettyWizard.css" type="text/css" />
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+			<header>TECH . GAMING . OPEN-SOURCE WIZARDS</p></header>
+			
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h1 style="font-size: 100px">HTML5 Gaming With PhoneGap (+plugins)</h1>
+					<h3>PhoneGap Meetup, <br /> @Microsoft Tokyo Japan</h3>
+					<p>
+						<small>Created by <a href="http://wizcorp.jp">Ally Ogilvie</a> / <a href="http://twitter.com/allyogilvie">@allyogilvie</a></small>
+					</p>
+				</section>
+
+				<section>
+				
+					<section>
+						<h2>Who likes games &lt;3?</h2>
+						<img class="fragment" width="650" height="450" src="./assets/image/gaming_cat.jpg" alt="GAMING CAT!">
+						<aside class="notes">
+						</aside>
+					</section>
+					
+					<section>
+						<h2>Dogs > cats &lt;3?</h2>
+						<img class="fragment" width="650" height="450" src="./assets/image/gaming_dog.jpg" alt="GAMING DOG!">
+						<aside class="notes">
+						</aside>
+					</section>
+					
+				</section>
+				
+				<section>	
+				
+					<section>
+						<h2>Common Problems</h2>
+						<p>Putting HTML5 straight to work on a device.</p>
+						<aside class="notes">
+						</aside>
+					</section>
+					
+					<section>
+						<h2>Audio</h2>
+						<p>Polyphony, streaming latency, no concurrency.</p>
+	
+						<aside class="notes">
+						<p>no polyphony (single file played on top of itself)</p>
+						<p>streaming latency (not responsive)</p>
+						<p>no concurrency (some browser can only play one file at a time)</p>
+						</aside>
+					</section>
+					
+					<section>
+						<h2>Asset Management</h2>
+						<p>Loading / streaming images & files.</p>
+	
+						<aside class="notes">
+						</aside>
+					</section>
+					
+					<section>
+						<h2>User session</h2>
+						<p>For server based games.</p>
+	
+						<aside class="notes">
+						</aside>
+					</section>
+					
+					<section>
+						<h2>Loading screens</h2>
+						<p>Efficient overlay (DOM re-draw hell).</p>
+	
+						<aside class="notes">
+						</aside>
+					</section>
+					
+					<section>
+						<h2>Analytics</h2>
+						<p>Device type, OS version, user session tracking.</p>
+	
+						<aside class="notes">
+						</aside>
+					</section>
+					
+					<section>
+						<p>and more… <br />GameCenter, <br />Local Notifications, <br />In-App-Purchases…</p>
+	
+						<aside class="notes">
+						<p>Talk about the common issues with HTML5, the problems a game developer may face…</p>
+						</aside>
+					</section>
+					
+				</section>
+
+				<section>
+				
+					<section>
+					
+						<h2>"Yeah, HTML5 apps<br />totally suck!"</h2>
+						<p style="padding-left:10em">- Bob the Developer</p>
+	
+						<aside class="notes">
+						</aside>
+					</section>
+					
+					<section>
+					
+						<ul>
+							<li>"Why don't you just <b>do it natively….</b>?"</li><br />
+							<li>"<b>Won't</b> perform like a native app~"</li><br />
+							<li>"Will feel <b>half</b> as fast~"</li><br />
+							<li>"<b>Facebook</b> says so~"</li><br />
+						</ul>
+						
+						<aside class="notes">
+						<p>HTML5 "… because it just wasn't there." - Mark Z</p>
+						<p>Exaggerate that the reasons above make most developers say the following…</p>
+						</aside>
+					</section>
+					
+				</section>
+				
+				<section>
+				
+					<section>
+						<h2>…WTF, are you talking about!?</h2>
+						<img width="500" height="375" src="./assets/image/hontoni-ja.jpg" alt="REALY?">
+	
+						<aside class="notes">
+						</aside>
+					</section>
+					
+					<section>
+						<h2>Facebook <br />vs <br />FASTbook</h2>
+						<br />
+						Thank you <a href="http://vimeo.com/55486684">Sencha!</a> ;)<br />
+						<aside class="notes">
+						<p></p>
+						</aside>
+					</section>
+					
+					<section>
+						<video width="960" height="520" controls=false>
+							<source src="./assets/video/sencha_fastbook_640x360.mp4" type="video/mp4">
+						Your browser does not support the video tag.
+						</video>
+						
+						<aside class="notes">
+						<p></p>
+						</aside>
+					</section>
+					
+				</section>
+				
+				<section>
+					
+					<section>
+					
+						<h2>PhoneGap a.k.a. Cordova<br />(to the rescue!)</h2>
+						<img width="500" height="375" src="./assets/image/super.jpg" alt="REALY?">
+						<aside class="notes">
+						Talk about how PhoneGap fills the hole.. almost! (just list API not talk about)
+						</aside>
+					</section>
+					
+					<section>
+					
+						<h2>The PhoneGap APIs</h2>
+						<table style="padding-left:8em; font-size:30px">
+							<tr>
+								<td>Accelerometer</td>
+								<td>Camera</td>
+								<td>Capture</td>
+							</tr>
+							<tr>
+								<td>Connection</td>
+								<td>Contacts</td>
+								<td>Device</td>
+							</tr>
+							<tr>
+								<td>Events</td>
+								<td>File</td>
+								<td>Geolocation</td>
+							</tr>
+							<tr>
+								<td>InAppBrowser</td>
+								<td>Media</td>
+								<td>Notification</td>
+							</tr>
+							<tr>
+								<td>Splashscreen</td>
+								<td>Storage</td>
+							</tr>
+						</table>
+						<br />
+						<p>Does this fix ALL our problems?<br /> (Features, performance and scalability)</p>
+	
+						<aside class="notes">
+							<p>Talk about how PhoneGap fills the hole.. almost! (just list API not talk about)</p>
+						</aside>
+					</section>
+					
+					<section>
+						<h2>Solving Our Problems</h2>
+						<ul>
+							<li class="fragment">Audio -> Media API</li>
+							<li style="list-style-type:none" class="fragment">YES ✔</li><br />
+							<li class="fragment">Asset Management -> File API + Storage API</li>
+							<li style="list-style-type:none" class="fragment">KIND OF ✔?</li><br />
+							<li class="fragment">GameCenter</li>
+							<li style="list-style-type:none" class="fragment">NO ☓</li><br />
+						</ul>
+						
+						<aside class="notes">
+							<p>For Low Latency you may have to do some work..</p>
+							<p>assets - combine multiple APIs, struggle on Android with 3 directories: complied assets, internal storage and external / SDCARD, COVER A BIT MORE LATER</p>
+							<p>GameCenter, no way…</p>
+						</aside>
+					</section>
+					
+				</section>
+				
+				<section>
+					<h2>PhoneGap Plugins!</h2>
+					<img width="400" height="450" src="./assets/image/unicorn.jpg" alt="REALY?">
+
+					<aside class="notes">
+					<p>Give some of the solutions to making a professional looking, high performance scalable game...
+Talk about each specific plugin with end demo.</p>
+					</aside>
+				</section>
+					
+				<section>
+					<section>
+						<small style="padding-left:40em">(wizAssets)</small>
+						<h2>Wizard Asset Manager</h2>
+						<ul>
+							<li>Simple relative asset management</li>
+							<li>Client - server asset synchronization</li>
+						</ul>
+						
+					</section>
+					
+					<section>
+						<small style="padding-left:40em">(wizAssets)</small>
+						<h2>APIs</h2>
+						<pre><code contenteditable>
+downloadFile()
+deleteFile()
+getFileURIs()
+getFileURI()
+						</code></pre>
+					</section>
+					
+					<section>
+						<small style="padding-left:40em">(wizAssets)</small>
+						<h2>Example getFileURIs()</h2>
+						<pre><code contenteditable>
+wizAssets.getFileURIs(Function success, Function fail); 
+						</code></pre>
+						<p style="padding-right:10em">returns { URI : File path}</p>
+						<pre><code contenteditable>
+{
+
+    img/ui/loader.gif  : "file:///sdcard/img/ui/loading.gif", 
+    img/cards/card001.jpg : "file://docs/settings/img/cards/card001.jpg" 
+
+}
+						</code></pre>
+						<aside class="notes">
+							<p>Returns object structure to send to the server on to your game..</p>
+							<p>Result scans and combines all source directories</p>
+						</aside>
+					</section>
+					
+					<section>
+						<small style="padding-left:40em">(wizAssets)</small>
+						<h2>Feeding a server-based game</h2>
+						<img width="776" height="300" src="./assets/image/wizAssets_simple.jpg" alt="REALY?">
+						<aside class="notes">
+							<p>Send asset object to server to check the files</p>
+							<p>Client only: start using it!</p>
+						</aside>
+					</section>
+					
+					<section>
+						<small style="padding-left:40em">(wizAssets)</small>
+						<h2>Example getFileURI()</h2>
+						<pre><code contenteditable>
+wizAssets.getFileURI("img/cards/card001.jpg", Function success, Function fail);
+						</code></pre>
+						<p style="padding-right:10em">returns full file path</p>
+						<pre><code contenteditable>
+file:///sdcard/img/ui/loading.gif
+						</code></pre>
+						<p>We don't care where the image _actually_ is, wizAssets will find it and return the path.</p>
+						<aside class="notes">
+							<p>Returns object structure to send to the server on to your game..</p>
+							<p>Result scans and combines all source directories</p>
+						</aside>
+					</section>
+					
+				</section>
+
+				<section>
+				
+					<section>
+						<small style="padding-left:40em">(wizViewManager)</small>
+						<h2>Wizard View Manager</h2>
+						<p>Total WebView and Canvas view control</p>
+						<ul>
+							<li>create</li>
+							<li>remove</li>
+							<li>show</li>
+							<li>hide</li>
+							<li>animate</li>
+							<li>resize</li>
+							<li>post message / data</li>
+							<li>loading source</li>
+						</ul>
+						
+					</section>
+					
+					<section>
+						<small style="padding-left:40em">(wizViewManager)</small>
+						<h2>APIs</h2>
+						<pre><code contenteditable>
+create()
+load()
+setLayout()
+remove()
+show()
+hide()
+postMessage()
+						</code></pre>
+						
+					</section>
+				
+					<section>
+						<small style="padding-left:40em">(wizViewManager)</small>
+						<h2>Simple create & load</h2>
+						<pre><code contenteditable>
+wizViewManager.create(String viewName, 
+JSONObject options, Function success, Function fail);
+						</code></pre>
+						
+					</section>
+				
+					<section>
+						<small style="padding-left:40em">(wizViewManager)</small>
+						<p>create() options</p>
+						<pre><code contenteditable>
+{
+
+    "src": "http://google.com" [URL/URI to load]
+    "type": "canvas" 
+    [view type to create - webview / canvas / default is webview]
+    "height": "300", [pixels - default : fills height] 
+    "width": "300", [pixels - default : fills width] 
+    "x": "0", [pixels - default : 0] 
+    "y": "0", [pixels - default : 0] 
+    "top": "0", [pixels or percent - default : 0]
+    "bottom": "0", [pixels or percent - default : 0]
+    "left": "0", [pixels or percent - default : 0]
+    "right": "0", [pixels or percent - default : 0]
+
+}
+						</code></pre>
+						
+					</section>
+					
+					<section>
+						<small style="padding-left:40em">(wizViewManager)</small>
+						<p>load() example</p>
+						<pre><code contenteditable>
+wizViewManager.load(String viewName, 
+String URIorURL, Function success, Function fail);
+
+wizViewManager.load("myView", 
+	"http://yahoo.com", 
+	success() {}, 
+	fail() {} 
+);
+
+wizViewManager.load("myView",
+	"file://var/user/my/device/directory/page.html",
+	success() {},
+	fail() {}
+);				
+						</code></pre>
+						<aside class="notes">
+							<p>DEMO EXAMPLE APP</p>
+						</aside>
+					</section>
+					
+				</section>
+				
+				<section>
+					<small style="padding-left:40em">(wizViewManager)</small>
+					<h2>Live Demo</h2>
+					<p>Guardian Ark (webview)</p>
+					<p>Celulo (canvas)</p>
+					<aside class="notes">
+						<p>DEMO EXAMPLE APP</p>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Other Wizcorp Plugins</h2>
+					<ul>
+						<li>wizDevTools<br /><small>sub-classed webview plugin for JS stack traces.</small></li>
+						<li>wizBootStrap<br /><small>for working on multiple development environments.</small></li>
+						<li>wizAnalytics.</li>
+						<li>GameCenter.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>…and remember</h2>
+					<p>YES, you most likely will need a custom plugin someday…</p>
+					<p>Don't worry, PhoneGap makes is easy! (and easier!)</p>
+					<p>OPEN SOURCE! FTW!</p>
+				</section>
+
+				<section>
+					<h2>Thank you & Links</h2>
+					<p>This Presentation <a href="http://wizcorp.jp/presentations" target="_blank">http://wizcorp.jp/presentations</a></p>
+					<p>Wizcorp Plugins <a href="http://github.com/wizcorp" target="_blank">http://github.com/wizcorp</a></p>
+					<p>Zuckerberg <a href="http://cnettv.cnet.com/mark-zuckerberg-biggest-mistake/9742-1_53-50131108.html" target="_blank">on HTML5 FB app</a></p>
+					<p>Sencha's <a href="http://www.sencha.com/blog/the-making-of-fastbook-an-html5-love-story/" target="_blank">Making of Fastbook</a></p>
+					
+					
+				</section>
+			</div>
+			<footer></footer>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
