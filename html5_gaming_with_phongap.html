@@ -58,7 +58,7 @@ PhoneGapとNode.jsを使ったHTML5ゲーム設計のための技術について
 					</section>
 					
 					<section>
-						<h2>Dogs > cats &lt;3?</h2>
+						<h2>Dogs more than cats &lt;3?</h2>
 						<img class="fragment" width="650" height="450" src="./assets/image/gaming_dog.jpg" alt="GAMING DOG!">
 						<aside class="notes">
 						</aside>
@@ -80,9 +80,9 @@ PhoneGapとNode.jsを使ったHTML5ゲーム設計のための技術について
 						<p>Polyphony, streaming latency, no concurrency.</p>
 	
 						<aside class="notes">
-						<p>no polyphony (single file played on top of itself)</p>
-						<p>streaming latency (not responsive)</p>
-						<p>no concurrency (some browser can only play one file at a time)</p>
+							no polyphony (single file played on top of itself)
+							streaming latency (not responsive)
+							no concurrency (some browser can only play one file at a time)
 						</aside>
 					</section>
 					
@@ -95,18 +95,21 @@ PhoneGapとNode.jsを使ったHTML5ゲーム設計のための技術について
 					</section>
 					
 					<section>
-						<h2>User session</h2>
-						<p>For server based games.</p>
+						<h2>Reload a page / load heavy content</h2>
+						<p>Cover me! i'm reloading!!</p>
 	
 						<aside class="notes">
+							What do you show the user? make them watch the content load? ugly!
 						</aside>
 					</section>
 					
 					<section>
 						<h2>Loading screens</h2>
-						<p>Efficient overlay (DOM re-draw hell).</p>
+						<p>Efficient overlay (JavaScript painting hell).</p>
 	
 						<aside class="notes">
+							full re-paint of every pixel on the screen
+							mention later wizSpinner plugin
 						</aside>
 					</section>
 					
@@ -122,7 +125,7 @@ PhoneGapとNode.jsを使ったHTML5ゲーム設計のための技術について
 						<p>and more… <br />GameCenter, <br />Local Notifications, <br />In-App-Purchases…</p>
 	
 						<aside class="notes">
-						<p>Talk about the common issues with HTML5, the problems a game developer may face…</p>
+						Talk about the common issues with HTML5, the problems a game developer may face…
 						</aside>
 					</section>
 					
@@ -149,8 +152,8 @@ PhoneGapとNode.jsを使ったHTML5ゲーム設計のための技術について
 						</ul>
 						
 						<aside class="notes">
-						<p>HTML5 "… because it just wasn't there." - Mark Z</p>
-						<p>Exaggerate that the reasons above make most developers say the following…</p>
+						HTML5 "… because it just wasn't there." - Mark Z
+						Exaggerate that the reasons above make most developers say the following…
 						</aside>
 					</section>
 					
@@ -171,7 +174,7 @@ PhoneGapとNode.jsを使ったHTML5ゲーム設計のための技術について
 						<br />
 						Thank you <a href="http://vimeo.com/55486684">Sencha!</a> ;)<br />
 						<aside class="notes">
-						<p></p>
+						
 						</aside>
 					</section>
 					
@@ -182,7 +185,7 @@ PhoneGapとNode.jsを使ったHTML5ゲーム設計のための技術について
 						</video>
 						
 						<aside class="notes">
-						<p></p>
+						
 						</aside>
 					</section>
 					
@@ -232,7 +235,7 @@ PhoneGapとNode.jsを使ったHTML5ゲーム設計のための技術について
 						<p>Does this fix ALL our problems?<br /> (Features, performance and scalability)</p>
 	
 						<aside class="notes">
-							<p>Talk about how PhoneGap fills the hole.. almost! (just list API not talk about)</p>
+							Talk about how PhoneGap fills the hole.. almost! (just list API not talk about)
 						</aside>
 					</section>
 					
@@ -243,14 +246,17 @@ PhoneGapとNode.jsを使ったHTML5ゲーム設計のための技術について
 							<li style="list-style-type:none" class="fragment">YES ✔</li><br />
 							<li class="fragment">Asset Management -> File API + Storage API</li>
 							<li style="list-style-type:none" class="fragment">KIND OF ✔?</li><br />
+							<li class="fragment">Reloading a page -> Splashscreen API</li>
+							<li style="list-style-type:none" class="fragment">KIND OF ✔?</li><br />							
 							<li class="fragment">GameCenter</li>
 							<li style="list-style-type:none" class="fragment">NO ☓</li><br />
 						</ul>
 						
 						<aside class="notes">
-							<p>For Low Latency you may have to do some work..</p>
-							<p>assets - combine multiple APIs, struggle on Android with 3 directories: complied assets, internal storage and external / SDCARD, COVER A BIT MORE LATER</p>
-							<p>GameCenter, no way…</p>
+							For Low Latency you may have to do some work..<br />
+							assets - combine multiple APIs, struggle on Android with 3 directories: complied assets, internal storage and external / SDCARD, COVER A BIT MORE LATER<br />
+							reloading - Correct use of the splash screen, tricky managing the JS events for pause() and reload()<br />
+							GameCenter, no way…
 						</aside>
 					</section>
 					
@@ -261,8 +267,8 @@ PhoneGapとNode.jsを使ったHTML5ゲーム設計のための技術について
 					<img width="400" height="450" src="./assets/image/unicorn.jpg" alt="REALY?">
 
 					<aside class="notes">
-					<p>Give some of the solutions to making a professional looking, high performance scalable game...
-Talk about each specific plugin with end demo.</p>
+					Give some of the solutions to making a professional looking, high performance scalable game...
+					Talk about each specific plugin with end demo.
 					</aside>
 				</section>
 					
@@ -304,8 +310,8 @@ wizAssets.getFileURIs(Function success, Function fail);
 }
 						</code></pre>
 						<aside class="notes">
-							<p>Returns object structure to send to the server on to your game..</p>
-							<p>Result scans and combines all source directories</p>
+							Returns object structure to send to the server on to your game..
+							Result scans and combines all source directories
 						</aside>
 					</section>
 					
@@ -314,8 +320,8 @@ wizAssets.getFileURIs(Function success, Function fail);
 						<h2>Feeding a server-based game</h2>
 						<img width="776" height="300" src="./assets/image/wizAssets_simple.jpg" alt="REALY?">
 						<aside class="notes">
-							<p>Send asset object to server to check the files</p>
-							<p>Client only: start using it!</p>
+							Send asset object to server to check the files
+							Client only: start using it!
 						</aside>
 					</section>
 					
@@ -331,8 +337,8 @@ file:///sdcard/img/ui/loading.gif
 						</code></pre>
 						<p>We don't care where the image _actually_ is, wizAssets will find it and return the path.</p>
 						<aside class="notes">
-							<p>Returns object structure to send to the server on to your game..</p>
-							<p>Result scans and combines all source directories</p>
+							Returns object structure to send to the server on to your game..
+							Result scans and combines all source directories
 						</aside>
 					</section>
 					
@@ -388,17 +394,17 @@ JSONObject options, Function success, Function fail);
 						<pre><code contenteditable>
 {
 
-    "src": "http://google.com" [URL/URI to load]
-    "type": "canvas" 
+    src: "http://google.com"
+    type: "canvas" 
     [view type to create - webview / canvas / default is webview]
-    "height": "300", [pixels - default : fills height] 
-    "width": "300", [pixels - default : fills width] 
-    "x": "0", [pixels - default : 0] 
-    "y": "0", [pixels - default : 0] 
-    "top": "0", [pixels or percent - default : 0]
-    "bottom": "0", [pixels or percent - default : 0]
-    "left": "0", [pixels or percent - default : 0]
-    "right": "0", [pixels or percent - default : 0]
+    height: 300,
+    width: 300, 
+    x: 0,
+    y: 0,
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0
 
 }
 						</code></pre>
@@ -410,7 +416,7 @@ JSONObject options, Function success, Function fail);
 						<p>load() example</p>
 						<pre><code contenteditable>
 wizViewManager.load(String viewName, 
-String URIorURL, Function success, Function fail);
+String URL, Function success, Function fail);
 
 wizViewManager.load("myView", 
 	"http://yahoo.com", 
@@ -425,7 +431,7 @@ wizViewManager.load("myView",
 );				
 						</code></pre>
 						<aside class="notes">
-							<p>DEMO EXAMPLE APP</p>
+							DEMO EXAMPLE APP
 						</aside>
 					</section>
 					
@@ -434,10 +440,10 @@ wizViewManager.load("myView",
 				<section>
 					<small style="padding-left:40em">(wizViewManager)</small>
 					<h2>Live Demo</h2>
-					<p>Guardian Ark (webview)</p>
-					<p>Celulo (canvas)</p>
+					<p>Guardian Ark (type webview)</p>
+					<p>Celulo (type canvas)</p>
 					<aside class="notes">
-						<p>DEMO EXAMPLE APP</p>
+						DEMO EXAMPLE APP
 					</aside>
 				</section>
 
@@ -446,8 +452,10 @@ wizViewManager.load("myView",
 					<ul>
 						<li>wizDevTools<br /><small>sub-classed webview plugin for JS stack traces.</small></li>
 						<li>wizBootStrap<br /><small>for working on multiple development environments.</small></li>
-						<li>wizAnalytics.</li>
-						<li>GameCenter.</li>
+						<li>wizSpinner<br /><small>creates a custom spinner tool overlay.</small></li>
+						<li>wizAnalytics<br /><small>simple analytics event and session tracker. Supports multiple analytic modules.</small></li>
+						<li>GameCenter<br /><small>Use the iOS GameCenter from JavaScript.</small></li>
+
 					</ul>
 				</section>
 
